@@ -36,3 +36,9 @@ intersect_vcfs \
 /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/files/variants/10kb \
 discovery \
 gnomad-filtered
+
+## top genes 10kb ##
+intersect_vcfs \
+/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/files/variants/gene \
+extension \
+gnomad-filtered
