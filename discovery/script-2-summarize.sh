@@ -54,9 +54,9 @@ summarize(){
 
 ## DISCOVERY - 75 UTAH MM CASES ##
 summarize \
-	/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/files \
-	samples/samples-10kb-utah-75-mm.txt \
-	variants/10kb/discovery-gnomad-filtered.vcf.gz \
-	2 \
-	variants/10kb/gnomad-filtered-discovery.vcf.gz \
-	/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/files/variants/10kb/summary-75-mm.txt 
+/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery \
+samples-75-mm.txt \
+discovery-gnomad-filtered.vcf.gz \
+2 \
+gnomad-filtered-discovery.vcf.gz \
+/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery/summary-75-mm.txt 
