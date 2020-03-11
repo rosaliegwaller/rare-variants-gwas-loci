@@ -1,4 +1,4 @@
-#rare-variants-gwas-loci
+# Rare risk variants at GWAS loci
 
 Required software:
 * https://samtools.github.io/bcftools/
