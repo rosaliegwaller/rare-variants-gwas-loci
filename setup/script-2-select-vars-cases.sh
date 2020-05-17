@@ -48,7 +48,7 @@ filter_vcf_samples_regions \
 
 ## FILTER REPLICATION SAMPLES TO 6 TARGET GENES ##
 filter_vcf_samples_regions \
-/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/mm/variants.both.combined.normalized.snpeff.vcf.gz \
+/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/variants.both.combined.normalized.snpeff.vcf.gz \
 /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
 /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/samples-255-cases.txt \
 /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/regions-replication.bed \
@@ -57,7 +57,7 @@ filter_vcf_samples_regions \
 
 ## FILTER EXTENSION SAMPLES TO 6 TARGET GENES ##
 filter_vcf_samples_regions \
-/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/mm/variants.both.combined.normalized.snpeff.vcf.gz \
+/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/variants.both.combined.normalized.snpeff.vcf.gz \
 /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
 /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/setup/samples-extension.txt \
 /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/extensions/regions-genes.bed \
