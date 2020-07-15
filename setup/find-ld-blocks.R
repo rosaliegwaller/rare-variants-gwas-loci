@@ -13,44 +13,16 @@ library(dplyr)
 setwd("C:/Users/rosal/OneDrive - University of Utah/2020/analyze/data/gwas-candidate-genes/")
 rsids = read.csv("gwas_catalog_v1.0.2-associations_e100_r2020-06-30_SELECTED_RSIDS.tsv",header = F) #list of rsids
 
-#CEU population
-LDlinkR::LDproxy_batch(snp = rsids,
-                       pop = "CEU",
-                       r2d = "r2",
-                       token = Sys.getenv("LDLINK_TOKEN"),
-                       append = TRUE)
-
-df.ceu = read.csv("combined_query_snp_list_ceu.txt",sep = '\t',row.names = NULL)
-
-#All populations
-LDlinkR::LDproxy_batch(snp = rsids,
-                       pop = "ALL",
-                       r2d = "r2",
-                       token = Sys.getenv("LDLINK_TOKEN"),
-                       append = TRUE)
-
-df.all = read.csv("combined_query_snp_list_all.txt",sep = '\t',row.names = NULL)
-
-#EUR populations
-LDlinkR::LDproxy_batch(snp = rsids,
-                       pop = "EUR",
-                       r2d = "r2",
-                       token = Sys.getenv("LDLINK_TOKEN"),
-                       append = TRUE)
-
-df.eur = read.csv("combined_query_snp_list_eur.txt",sep = '\t',row.names = NULL)
-
-#Non-Finnish EUR populations ***USE THIS ONE***
+#Non-Finnish EUR populations
 LDlinkR::LDproxy_batch(snp = rsids,
                        pop = c("CEU","TSI","GBR","IBS"),
                        r2d = "r2",
                        token = Sys.getenv("LDLINK_TOKEN"),
                        append = TRUE)
 
-df.nfin = read.csv("combined_query_snp_list_nfin.txt",sep = '\t',row.names = NULL)
+df = read.csv("combined_query_snp_list_nfin.txt",sep = '\t',row.names = NULL)
 
-#select snps with r2 >= 0.8 ***USE THIS ONE***
-df = df.nfin
+#select snps with r2 >= 0.8
 snp = as.character(rsids[rsids$V1!="rs4487645" & rsids$V1!="rs138747" & rsids$V1!="rs9270750",]) #remove 3 snps not found by LDlink
 out = data.frame(chr=character(),pos=numeric(),min=numeric(),max=numeric(),stringsAsFactors=FALSE)
 for (x in snp) {
@@ -61,6 +33,7 @@ for (x in snp) {
 out$pos = as.numeric(out$pos)
 out$min = as.numeric(out$min)
 out$max = as.numeric(out$max)
+
 #regions
 out$start <- out$pos + out$min
 out$end <- out$pos + out$max
