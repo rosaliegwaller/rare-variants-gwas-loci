@@ -64,7 +64,28 @@ write.table(x = bed,file = "regions_r8_nfin.txt",sep = "\t",quote = F,row.names 
 
 #read in gene overlap file
 genes = read.csv(file = "knownCanonical_overlap.txt",sep = "\t")
-##select mRNA genes and remove duplicates
+
+#select mRNA genes and remove duplicates
 mRNA = unique(genes[genes$hg19.kgXref.description %>% contains(match = "mRNA",ignore.case = F),])
-##count unique genes: 95 genes (5 have multiple canonical transcripts)
+
+#count unique genes: 95 genes (5 have multiple canonical transcripts)
 length(unique(mRNA$hg19.kgXref.geneSymbol))
+
+#reformat to bed file
+head(mRNA)
+##rename columns
+colnames(mRNA) <- c("chr","start","end","gene","description")
+##remove "chr" string
+mRNA$chr = gsub("chr","", mRNA$chr)
+mRNA$chr = as.numeric(mRNA$chr)
+##reorder
+df = mRNA[order(mRNA$chr,mRNA$start,mRNA$end),-5]
+
+#write output
+write.table(x = df,file = "regions_r8nfin_knownCanonical_overlap_mRNA_bed.txt",sep = "\t",quote = F,row.names = F,col.names = F)
+
+
+
+
+
+
