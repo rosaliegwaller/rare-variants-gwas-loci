@@ -1,30 +1,31 @@
 #!/bin/bash/env bash
 
-BEDTOOLS=/uufs/chpc.utah.edu/common/home/u0690571/bin/bedtools/bedtools2/bin/bedtools
-DIR=/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/setup
+module load bedtools/2.28.0 #load bedtools on CHPC PE
+DIR=~/github/rare-variants-gwas-loci/bed_files
+REGIONS=$DIR/regions-r8nfin-genes.bed
 
 ## DISCOVERY ##
-$BEDTOOLS intersect \
--a $DIR/regions-10kb-gwas.bed \
+bedtools intersect \
+-a $REGIONS \
 -b $DIR/regions-utah-exome.bed \
 -b $DIR/regions-cornell-exome.bed \
-| $BEDTOOLS sort -i - | $BEDTOOLS merge -i - \
-> /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery/regions-discovery.bed
+| bedtools sort -i - | bedtools merge -i - \
+> $DIR/regions-discovery-v2.bed
 
 echo 'TOTAL BASES IN DISCOVERY REGIONS'
 awk 'BEGIN { OFS = "\t" } { $4 = $3 - $2 } 1' \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery/regions-discovery.bed \
+$DIR/regions-discovery-v2.bed \
 | awk '{s+=$4}END{print s}' -
 
 ## REPLICATION ##
-$BEDTOOLS intersect \
--a $DIR/regions-10kb-replication.bed \
--b $DIR/regions-utah-exome.bed \
--b $DIR/regions-cornell-exome.bed \
-| $BEDTOOLS sort -i - | $BEDTOOLS merge -i - \
-> /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/regions-replication.bed
+#bedtools intersect \
+#-a $DIR/regions-10kb-replication.bed \
+#-b $DIR/regions-utah-exome.bed \
+#-b $DIR/regions-cornell-exome.bed \
+#| bedtools sort -i - | bedtools merge -i - \
+#> /uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/regions-replication.bed
 
-echo 'TOTAL BASES IN DISCOVERY REGIONS'
-awk 'BEGIN { OFS = "\t" } { $4 = $3 - $2 } 1' \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/regions-replication.bed \
-| awk '{s+=$4}END{print s}' -
+#echo 'TOTAL BASES IN DISCOVERY REGIONS'
+#awk 'BEGIN { OFS = "\t" } { $4 = $3 - $2 } 1' \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/regions-replication.bed \
+#| awk '{s+=$4}END{print s}' -
