@@ -1,4 +1,5 @@
 #!/bin/bash/env bash
+module load bcftools/1.9 #load bcftools on CHPC PE
 
 filter_vcf_samples_regions (){
 
@@ -11,6 +12,7 @@ filter_vcf_samples_regions (){
 	MIN_AC=$6
 
 	mkdir $DIR/tmp
+	$MIN_AC
 
 	## FILTER VCF TO SAMPLES AND REGIONS ##
 	bcftools view \
@@ -29,7 +31,7 @@ filter_vcf_samples_regions (){
 
 	rm -r $DIR/tmp
 
-	echo "CHECK AC FILTER >= "$AC
+	echo "CHECK AC FILTER >= "$MIN_AC
 	bcftools query -f '%AC\n' \
 	$OUTVCF | sort -n | head -1
 
@@ -37,29 +39,38 @@ filter_vcf_samples_regions (){
 	$OUTVCF | grep 'number of' -m2
 }
 
-## FILTER DISCOVERY AND SIMULATION SAMPLES TO 10KB REGIONS ##
+## UPDATE 2020-JUL-17 TO GENES IN LD BLOCKS ##
 filter_vcf_samples_regions \
-/uufs/chpc.utah.edu/common/home/camp-group2/VCF/2018CampJCFinal/17-12-23_Analysis-Camp-Multi_Cancer_JGT_Final_1525367750.vcf.gz \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/setup/samples-discovery.txt \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery/regions-discovery.bed \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery/discovery.vcf \
+/uufs/chpc.utah.edu/common/HIPAA/proj_camp/shared/VCF/2018CampJCFinal/17-12-23_Analysis-Camp-Multi_Cancer_JGT_Final_1525367750.vcf.gz \
+~/github/rare-variants-gwas-loci/setup/ \
+~/github/rare-variants-gwas-loci/setup/samples-discovery.txt \
+~/github/rare-variants-gwas-loci/bed_files/regions-discovery-v2.bed \
+~/github/rare-variants-gwas-loci/discovery/discovery-v2.vcf \
 2
+
+## FILTER DISCOVERY AND SIMULATION SAMPLES TO 10KB REGIONS ##
+#filter_vcf_samples_regions \
+#/uufs/chpc.utah.edu/common/home/camp-group2/VCF/2018CampJCFinal/17-12-23_Analysis-Camp-Multi_Cancer_JGT_Final_1525367750.vcf.gz \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/setup/samples-discovery.txt \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery/regions-discovery.bed \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/discovery/discovery.vcf \
+#2
 
 ## FILTER REPLICATION SAMPLES TO 6 TARGET GENES ##
-filter_vcf_samples_regions \
-/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/variants.both.combined.normalized.snpeff.vcf.gz \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/samples-255-cases.txt \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/regions-replication.bed \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/replication.vcf \
-2
+#filter_vcf_samples_regions \
+#/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/variants.both.combined.normalized.snpeff.vcf.gz \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/samples-255-cases.txt \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/regions-replication.bed \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/replication/replication.vcf \
+#2
 
 ## FILTER EXTENSION SAMPLES TO 6 TARGET GENES ##
-filter_vcf_samples_regions \
-/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/variants.both.combined.normalized.snpeff.vcf.gz \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/setup/samples-extension.txt \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/extensions/regions-genes.bed \
-/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/extensions/extensions.vcf \
-1
+#filter_vcf_samples_regions \
+#/uufs/chpc.utah.edu/common/home/camp-group1/MM/rosalie/vcf/variants.both.combined.normalized.snpeff.vcf.gz \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/ \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/setup/samples-extension.txt \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/extensions/regions-genes.bed \
+#/uufs/chpc.utah.edu/common/home/u0690571/github/rare-variants-gwas-loci/extensions/extensions.vcf \
+#1
