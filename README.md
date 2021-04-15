@@ -6,8 +6,10 @@ In Waller et al. Humam Molecular Genetics 2021 (https://doi.org/10.1093/hmg/ddab
 
 Here we provide the code and variants (VCF) that generated the Discovery, Replication, and Extension phase results reported in Waller et al. (2021). Variants within the VCF files are filtered to criteria described in the Methods section of Waller et al. (2021) using BASH scripts. Genomic tools including bcftools (http://samtools.github.io/bcftools/bcftools.html), vcftools (http://vcftools.sourceforge.net), and VEP (https://useast.ensembl.org/info/docs/tools/vep/index.html) are used to annotate, sort, and select samples and variants.
 
-**setup**: contains scripts that filtered the original myeloma and gnomad VCFs to GWAS 10kb regions
-**discovery**: contains variants in the discovery myeloma samples at GWAS loci and filtering scripts
-**replication**: contains variants in the replication myeloma samples and filtering scripts
-**extensions**: contains variants in the six genes of interest in extension meyloma and CoMMpass samples and filtering scripts
+### Description of folders
+* setup: scripts that filtered the original myeloma and gnomad VCFs to GWAS 10kb regions
+* bed_files: 10kb lymphoid neoplasm GWAS regions and exome sequencing regions
+* discovery: variants in the discovery myeloma samples at GWAS loci and filtering scripts
+* replication: variants in the replication myeloma samples and filtering scripts
+* extensions: variants in the six genes of interest in extension meyloma and CoMMpass samples and filtering scripts
 
